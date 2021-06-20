@@ -1,37 +1,37 @@
 #include<stdio.h>
+#include<conio.h>
 #include<stdlib.h>
+#include<string.h>
 
-int main(){
-   
-    FILE *arquivo;
-    double Vet[5];
-    int result;
-    int i;
-    
-    arquivo = fopen("arquivo.bin", "rb");
+int main()
+{
+   int n;
+   int num;
+   FILE *fptr;
+
+   //Abre o arquivo
+   if ((fptr = fopen("arquivo.bin","rb")) == NULL){
+       printf("Error!");
+
      
-    if (arquivo == NULL){
-        printf("Problemas na abertura do arquivo \n");
-        return(1);
-    }
+       exit(1);
+   }
+   num = 6664;
+   
+   // Vai pro fim do arquivo
+   fseek(fptr, -sizeof(int), SEEK_END);
 
-    int n;
-    fread(&n, sizeof(int), 1, arquivo);
+   for(n = 1; n < 15; ++n)
+   {
+      fread(&num, sizeof(num), 1, fptr); 
+      printf("n1: %d\t", num);
+      fseek(fptr, -sizeof(num, SEEK_CUR);
+   }
+   fclose(fptr); 
+  
+   return 0;
+}
 
-
-    int *vet = (int*)malloc(n*sizeof(int));
-    fread(vet, sizeof(int), n, arquivo);
-
-    for(i=0; i<n; i++){
-        printf("(%d), %d", i, vet[i]);
-    }    
-    
-
-    printf("n = %d\n", n);
-
-    free(vet);
-    fclose(arquivo);
-    
 
     /**
      * CONTEUDO DO AQUIVO *
@@ -48,6 +48,3 @@ int main(){
     Rotacionar como?
 
     **/
-
-    return 0;
-}
